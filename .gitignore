@@ -1,1 +1,8 @@
+build/
+dist/
+img2epub.egg-info/
+__pycache__/
 sample/
+.cache/
+tmp.epub.*/
+*.epub
