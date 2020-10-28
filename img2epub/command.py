@@ -3,7 +3,7 @@
 
 import sys
 from datetime import datetime, timezone
-from . import functions as func
+from img2epub import functions as func
 
 
 def main():
@@ -25,3 +25,8 @@ def main():
     func.copy_nav(tmp_dir_name)
     func.gen_chap1_xhtml(tmp_dir_name, book_opf_context)
     func.zip_epub(tmp_dir_name, src_dir)
+
+
+
+if __name__ == "__main__":
+    main()
