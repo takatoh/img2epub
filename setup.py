@@ -12,7 +12,8 @@ setuptools.setup(
     package_dir={"img2epub": "img2epub"},
     package_data={"img2epub": ["data/*"]},
     install_requires=[
-        "jinja2"
+        "jinja2",
+        "click"
     ],
     classifiers=[
         "License :: OSI Approved :: MIT License",
