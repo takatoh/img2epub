@@ -48,6 +48,8 @@ def build(ctx, src_dir):
     func.gen_chap1_xhtml(tmp_dir_name, book_opf_context)
     func.zip_epub(tmp_dir_name, src_dir)
 
+    shutil.rmtree(tmp_dir_name)
+
 
 @cmd.command(help="Remove any temporary directories.")
 @click.pass_context
