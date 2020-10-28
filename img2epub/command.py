@@ -5,6 +5,7 @@ import click
 from datetime import datetime, timezone
 from img2epub import functions as func
 import os
+import shutil
 
 
 here = os.path.abspath(os.path.dirname(__file__))
@@ -46,6 +47,15 @@ def build(ctx, src_dir):
     func.copy_nav(tmp_dir_name)
     func.gen_chap1_xhtml(tmp_dir_name, book_opf_context)
     func.zip_epub(tmp_dir_name, src_dir)
+
+
+@cmd.command(help="Remove any temporary directories.")
+@click.pass_context
+def clean(ctx):
+    dirs = [f for f in os.listdir(".") if os.path.isdir(f)]
+    tmp_dirs = [d for d in dirs if d.startswith("tmp.epub.")]
+    for tmp_dir in tmp_dirs:
+        shutil.rmtree(tmp_dir)
 
 
 
