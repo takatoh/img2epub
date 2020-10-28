@@ -1,7 +1,6 @@
 # encoding: utf-8
 
 
-#import sys
 import click
 from datetime import datetime, timezone
 from img2epub import functions as func
@@ -30,7 +29,6 @@ def cmd(ctx):
 @click.pass_context
 @click.argument("src_dir")
 def build(ctx, src_dir):
-#    src_dir = sys.argv[1]
     now = datetime.now(timezone.utc)
     tmp_dir_name = "tmp.epub.{time}".format(time=now.strftime("%Y%m%d%H%M%S"))
 
