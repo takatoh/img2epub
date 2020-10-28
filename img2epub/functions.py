@@ -1,7 +1,6 @@
 # encoding: utf-8
 
 
-import sys
 import os
 import shutil
 import subprocess
@@ -9,6 +8,9 @@ from datetime import datetime, timezone
 import uuid
 import glob
 from jinja2 import Template, Environment, FileSystemLoader
+
+
+data_dir = os.path.join(os.path.abspath(os.path.dirname(__file__)), "data")
 
 
 def make_dirs(tmp_dir_name):
@@ -28,11 +30,13 @@ def gen_mimetype(tmp_dir_name):
 
 
 def copy_container(tmp_dir_name):
-    shutil.copyfile("data/container.xml", os.path.join(tmp_dir_name, "META-INF/container.xml"))
+    src = os.path.join(data_dir, "container.xml")
+    dest = os.path.join(tmp_dir_name, "META-INF/container.xml")
+    shutil.copyfile(src, dest)
 
 
 def gen_book_opf(tmp_dir_name, context):
-    env = Environment(loader=FileSystemLoader("data"))
+    env = Environment(loader=FileSystemLoader(data_dir))
     template = env.get_template("book.opf.template")
     context["images"] = [s.replace("{tmp}/EPUB".format(tmp=tmp_dir_name), ".") for s in context["images"]]
     context["cover"] = context["images"][0]
@@ -42,11 +46,13 @@ def gen_book_opf(tmp_dir_name, context):
 
 
 def copy_nav(tmp_dir_name):
-    shutil.copyfile("data/nav.xhtml", os.path.join(tmp_dir_name, "EPUB/nav.xhtml"))
+    src = os.path.join(data_dir, "nav.xhtml")
+    dest = os.path.join(tmp_dir_name, "EPUB/nav.xhtml")
+    shutil.copyfile(src, dest)
 
 
 def gen_chap1_xhtml(tmp_dir_name, context):
-    env = Environment(loader=FileSystemLoader("data"))
+    env = Environment(loader=FileSystemLoader(data_dir))
     template = env.get_template("chap1.xhtml.template")
     images = [s.replace("{tmp}/EPUB".format(tmp=tmp_dir_name), ".") for s in context["images"]]
     with open(os.path.join(tmp_dir_name, "EPUB/chap1.xhtml"), "w") as f:
