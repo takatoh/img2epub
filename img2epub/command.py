@@ -5,6 +5,14 @@
 import click
 from datetime import datetime, timezone
 from img2epub import functions as func
+import os
+
+
+here = os.path.abspath(os.path.dirname(__file__))
+about = {}
+with open(os.path.join(here, "__init__.py")) as f:
+    exec(f.read(), about)
+VERSION = about["__version__"]
 
 
 def main():
@@ -13,6 +21,7 @@ def main():
 
 @click.group()
 @click.pass_context
+@click.version_option(version=VERSION, message="v%(version)s")
 def cmd(ctx):
     pass
 
