@@ -40,15 +40,17 @@ def build(ctx, title, keep, src_dir):
     images = [s.replace("\\","/") for s in sorted(images)]
     func.gen_mimetype(tmp_dir_name)
     func.copy_container(tmp_dir_name)
+    if not title:
+        title = src_dir
     book_opf_context = {
-        "title": title or src_dir,
+        "title": title,
         "time": now.isoformat(),
         "images": images
     }
     func.gen_book_opf(tmp_dir_name, book_opf_context)
     func.copy_nav(tmp_dir_name)
     func.gen_chap1_xhtml(tmp_dir_name, book_opf_context)
-    func.zip_epub(tmp_dir_name, src_dir)
+    func.zip_epub(tmp_dir_name, title)
 
     if not keep:
         shutil.rmtree(tmp_dir_name)
