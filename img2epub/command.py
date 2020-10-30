@@ -28,9 +28,10 @@ def cmd(ctx):
 
 @cmd.command(help="Build EPUB book.")
 @click.pass_context
+@click.option("--title", type=str, help="Specify book title.")
 @click.option("--keep", is_flag=True, help="Keep temporary directory.")
 @click.argument("src_dir")
-def build(ctx, keep, src_dir):
+def build(ctx, title, keep, src_dir):
     now = datetime.now(timezone.utc)
     tmp_dir_name = "tmp.epub.{time}".format(time=now.strftime("%Y%m%d%H%M%S"))
 
@@ -40,7 +41,7 @@ def build(ctx, keep, src_dir):
     func.gen_mimetype(tmp_dir_name)
     func.copy_container(tmp_dir_name)
     book_opf_context = {
-        "title": src_dir,
+        "title": title or src_dir,
         "time": now.isoformat(),
         "images": images
     }
