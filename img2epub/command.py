@@ -45,14 +45,14 @@ def build(ctx, title, output, keep, src_dir):
     func.copy_container(tmp_dir_name)
     if not title:
         title = src_dir
-    book_opf_context = {
+    context = {
         "title": title,
         "time": now.isoformat(),
         "images": images
     }
-    func.gen_book_opf(tmp_dir_name, book_opf_context)
+    func.gen_book_opf(tmp_dir_name, context)
     func.copy_nav(tmp_dir_name)
-    func.gen_chap1_xhtml(tmp_dir_name, book_opf_context)
+    func.gen_chap1_xhtml(tmp_dir_name, context)
     func.zip_epub(tmp_dir_name, func.build_epub_filename(output, title))
 
     if not keep:
