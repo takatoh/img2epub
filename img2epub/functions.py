@@ -56,7 +56,7 @@ def gen_chap1_xhtml(tmp_dir_name, context):
     template = env.get_template("chap1.xhtml.template")
     images = [s.replace("{tmp}/EPUB".format(tmp=tmp_dir_name), ".") for s in context["images"]]
     with open(os.path.join(tmp_dir_name, "EPUB/chap1.xhtml"), "w") as f:
-        f.write(template.render(images=images))
+        f.write(template.render(images=images, title=context["title"]))
 
 
 def zip_epub(tmp_dir_name, title):
