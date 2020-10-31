@@ -43,7 +43,7 @@ def gen_book_opf(tmp_dir_name, context):
     context["images"] = [s.replace("{tmp}/EPUB".format(tmp=tmp_dir_name), ".") for s in context["images"]]
     context["cover"] = context["images"][0]
     context["uuid"] = str(uuid.uuid4())
-    with open(os.path.join(tmp_dir_name, "EPUB/book.opf"), "w") as f:
+    with open(os.path.join(tmp_dir_name, "EPUB/book.opf"), "w", encoding="utf-8") as f:
         f.write(template.render(context))
 
 
@@ -57,7 +57,7 @@ def gen_chap1_xhtml(tmp_dir_name, context):
     env = Environment(loader=FileSystemLoader(data_dir))
     template = env.get_template("chap1.xhtml.template")
     images = [s.replace("{tmp}/EPUB".format(tmp=tmp_dir_name), ".") for s in context["images"]]
-    with open(os.path.join(tmp_dir_name, "EPUB/chap1.xhtml"), "w") as f:
+    with open(os.path.join(tmp_dir_name, "EPUB/chap1.xhtml"), "w", encoding="utf-8") as f:
         f.write(template.render(images=images, title=context["title"]))
 
 
