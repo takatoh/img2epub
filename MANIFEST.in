@@ -1,0 +1,4 @@
+include img2epub/data/book.opf.template
+include img2epub/data/chap1.xhtml.template
+include img2epub/data/container.xml
+include img2epub/data/nav.xhtml
