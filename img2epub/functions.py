@@ -4,6 +4,7 @@
 from datetime import datetime, timezone
 import glob
 import os
+import re
 import shutil
 import subprocess
 import uuid
@@ -60,9 +61,15 @@ def gen_chap1_xhtml(tmp_dir_name, context):
         f.write(template.render(images=images, title=context["title"]))
 
 
-def zip_epub(tmp_dir_name, title):
-    epub_file_name = "../{title}.epub".format(title=title)
+def zip_epub(tmp_dir_name, filename):
+    epub_file_name = "../{filename}".format(filename=filename)
     os.chdir(tmp_dir_name)
     subprocess.run(["zip", "-X0", epub_file_name, "mimetype"], stdout=subprocess.DEVNULL)
     subprocess.run(["zip", "-r9", epub_file_name, "*", "-x", "mimetype"], stdout=subprocess.DEVNULL)
     os.chdir("..")
+
+
+def build_epub_filename(output, title):
+    if not output:
+        output = title
+    return re.sub("\.epub\Z", "", output, flags=re.IGNORECASE) + ".epub"
