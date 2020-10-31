@@ -1,12 +1,13 @@
 # encoding: utf-8
 
 
+from datetime import datetime, timezone
+import glob
 import os
 import shutil
 import subprocess
-from datetime import datetime, timezone
 import uuid
-import glob
+
 from jinja2 import Template, Environment, FileSystemLoader
 
 
